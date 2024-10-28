@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ahorcado</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}" />
+</head>
+<body>
+    <div class="panelControl">
+        <div th:replace="panelControl :: panelControl "/>
+    </div>
+    <br>
+
+    <a th:href="@{/ahorcado/palabra}">Añadir palabra</a>
+    <br>
+
+    <img th:class="${Intentos}" th:src="@{/img/FFFFFF-0.0.png}">
+    <br>
+
+    <th:block th:each="a: ${arr}">
+        <span th:text="${a}"/>
+    </th:block>
+    <br>
+
+    <form th:unless="${Intentos == 'Cero' || Ganador == true}" th:action="@{/ahorcado/juego}" method="post" th:object="${Letra}">
+        <label>
+            <span class="negrita">Letra: </span>
+            <input type="text" name="letra" id="letra" th:value="*{letra}"/>
+            <span th:each="error: ${#fields.errors('*')}" th:text="|${error} &emsp;|"/>
+            <span class="rojo negrita" th:text="${error}" />
+        </label>
+        <br>
+        <input type="submit" value="Enviar">
+    </form>
+
+    <span th:if="${Intentos == 'Cero'}">Has pedido,</span>
+    <span th:if="${Ganador}">Has ganado,</span>
+    <a th:if="${Intentos == 'Cero' || Ganador == true}" th:href="@{/ahorcado/volverJugar}"> volver a jugar</a>
+    <a th:unless="${Intentos == 'Cero' || Ganador == true}" th:href="@{/ahorcado/volverJugar}"> Volver a empezar</a>
+</body>
+</html>

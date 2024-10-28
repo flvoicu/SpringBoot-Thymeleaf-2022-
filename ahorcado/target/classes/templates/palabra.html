@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Palabra</title>
+</head>
+<body>
+    <div class="panelControl">
+        <div th:replace="panelControl :: panelControl "/>
+    </div>
+    <form th:action="@{/ahorcado/palabra}" method="post" th:object="${Palabra}">
+        <label>
+            <span class="negrita">Palabra</span>
+            <input type="text" name="palabra" id="palabra" th:value="*{palabra}">
+            <span class="rojo negrita" th:each="error: ${#fields.errors('palabra')}" th:text="|${error} &emsp;|" />
+        </label>
+        <br>
+        <input type="submit" value="Enviar">
+    </form>
+
+</body>
+</html>

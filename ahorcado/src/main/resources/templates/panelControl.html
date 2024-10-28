@@ -1,0 +1,30 @@
+<th:block th:fragment="panelControl" xmlns:th="http://www.w3.org/1999/html">
+
+	<div >
+		<span th:text="${ip}" />
+		<span th:text="${equipo}" />
+	<div>
+	<div >
+		<span th:text="${_id}"/>
+		<span th:text="${_contador}"/>
+	</div>
+	<div th:if="${Intentos != null}">
+		<span>Palabra oculta: </span><span th:text="${Palabra.palabra}"/>
+		<br>
+		<span th:if="${listaLetras.size > 0}">Ultima letra recibida: </span><span th:if="${listaLetras.size > 0}" th:text="${listaLetras[listaLetras.size - 1]}"/>
+		<br th:if="${listaLetras.size > 0}">
+
+		<span th:if="${listaLetras.size > 0}">Letras usadas: </span>
+		<th:block th:each="letra: ${listaLetras}">
+			<span th:text="${letra}" id="letra" name="letra"/>
+		</th:block>
+		<br th:if="${listaLetras.size > 0}">
+
+		<span>Número de intentos: 6</span>
+		<br>
+		<span>Número de intentos restantes: </span><span th:text="${numIntentos}"/>
+		<br>
+	</div>
+	<a th:unless="${_id == null}" th:href="@{/ahorcado/logout}"> Logout</a>
+
+</th:block>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title th:if="${departamento.idDepartamento  == 0}" th:utext="#{departamento.alta.title}"/>
+    <title th:if="${departamento.idDepartamento  != 0}" th:utext="#{departamento.alta.title}"/>
+    <link rel="stylesheet" href="data:,">
+    <link th:href="@{/css/estilos.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div th:replace="panelControl :: panelControl"></div>
+<form id="formularioDepartamento" name="formularioDepartamento" th:object="${departamento}" th:action="@{/departamento/alta}" method="POST">
+    <h1 th:if="${departamento.idDepartamento  == 0}" th:text="#{departamento.alta.h1}"/>
+    <h1 th:if="${departamento.idDepartamento  != 0}" th:text="#{departamento.mod.h1}"/>
+
+    <input type="hidden" id="id" th:field="*{idDepartamento}"/>
+
+    <label for="nombre">
+        <span class="rojo negrita">*</span>
+        <span class="negrita" th:text="#{departamento.nombre}"></span>
+        <input type="text" name="nombre" id="nombre" th:field="*{nombre}"/>
+        <span class="rojo negrita" th:each="error: ${#fields.errors('nombre')}" th:utext="${error}" />
+    </label>
+    <br />
+    <label for="depno">
+        <span class="rojo negrita">*</span>
+        <span class="negrita" th:text="#{departamento.depno}"></span>
+        <input type="text" name="depno" id="depno" th:field="*{depno}"/>
+        <span class="rojo negrita" th:each="error: ${#fields.errors('depno')}" th:utext="${error}" />
+    </label>
+    <br />
+    <label for="localizacion">
+        <span class="rojo negrita">*</span>
+        <span class="negrita" th:text="#{departamento.localizacion}"></span>
+        <input type="text" name="localizacion" id="localizacion" th:field="*{localizacion}"/>
+        <span class="rojo negrita" th:each="error: ${#fields.errors('localizacion')}" th:utext="${error}" />
+
+    </label>
+    <br />
+    <input type="submit" th:value="#{departamento.alta.submit}" />
+    <input type="reset" th:value="#{departamento.alta.vaciar}" />
+</form>
+</body>
+</html>

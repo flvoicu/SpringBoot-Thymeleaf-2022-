@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title th:if="${pais.idPais == 0}" th:utext="#{pais.alta.title}"/>
+    <title th:if="${pais.idPais  != 0}" th:utext="#{pais.alta.title}"/>
+    <link rel="stylesheet" href="data:,">
+    <link th:href="@{/css/estilos.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div th:replace="panelControl :: panelControl"></div>
+<form id="formularioPais" name="formularioPais" th:object="${pais}" th:action="@{/pais/alta}" method="POST">
+    <h1 th:if="${pais.idPais  == 0}" th:text="#{pais.alta.h1}"/>
+    <h1 th:if="${pais.idPais  != 0}" th:text="#{pais.mod.h1}"/>
+
+    <input type="hidden" id="id" th:field="*{idPais}"/>
+
+    <label for="siglas">
+        <span class="rojo negrita">*</span>
+        <span class="negrita" th:text="#{pais.siglas}"></span>
+        <input type="text" name="siglas" id="siglas" th:field="*{siglas}"/>
+        <span class="rojo negrita" th:each="error: ${#fields.errors('siglas')}" th:utext="${error}" />
+    </label>
+    <br>
+    <label for="nombre">
+        <span class="rojo negrita">*</span>
+        <span class="negrita" th:text="#{pais.nombre}"></span>
+        <input type="text" name="nombre" id="nombre" th:field="*{nombre}"/>
+        <span class="rojo negrita" th:each="error: ${#fields.errors('nombre')}" th:utext="${error}" />
+    </label>
+    <br>
+    <label for="poblacion">
+        <span class="rojo negrita">*</span>
+        <span class="negrita" th:text="#{pais.poblacion}"></span>
+        <input type="text" name="poblacion" id="poblacion" th:field="*{poblacion}"/>
+        <span class="rojo negrita" th:each="error: ${#fields.errors('poblacion')}" th:utext="${error}" />
+    </label>
+    <br>
+    <label for="superficie">
+        <span class="rojo negrita">*</span>
+        <span class="negrita" th:text="#{pais.superficie}"></span>
+        <input type="text" name="superficie" id="superficie" th:field="*{superficie}"/>
+        <span class="rojo negrita" th:each="error: ${#fields.errors('superficie')}" th:utext="${error}" />
+    </label>
+    <br>
+    <label>
+        <span class="rojo negrita">*</span>
+        <span class="negrita" th:text="#{pais.fronteras}" />
+        <br>
+        <select multiple="multiple" th:name="#{pais.fronteras}" th:id="#{pais.fronteras}" th:field="*{frontera}">
+            <th:block th:each="pais: ${listaPais}">
+                <option th:value="${pais.idPais}" th:id="${pais.nombre}">
+                    <span th:text="${pais.nombre}" />
+            </th:block>
+        </select>
+    </label>
+    <br>
+
+    <input type="submit" th:value="#{pais.alta.submit}" />
+    <input type="reset" th:value="#{pais.alta.vaciar}" />
+</form>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title th:if="${Usuario.idUsuario == 0}" th:utext="#{formAlta.title}"/>
+	<title th:if="${Usuario.idUsuario != 0}" th:utext="#{formMod.title}"/>
+	<link rel="icon" href="data:," />
+	<link rel="stylesheet" th:href="@{/css/estilos.css}" />
+	<script type="text/javascript" th:src="@{/js/funciones.js}"></script>
+</head>
+
+<body>
+
+	<div th:replace="panelControl :: panelControl"></div>
+	<a type="button" th:href="@{?lang=es}"  th:text="#{esp}"/>
+	<a type="button" th:href="@{?lang=en}" th:text="#{eng}" />
+	<div class="contenido">
+
+		<h1 th:if="${Usuario.idUsuario  == 0}" th:text="#{formAlta.h1.titulo}"/>
+		<h1 th:if="${Usuario.idUsuario  != 0}" th:text="#{formMod.h1.titulo}"/>
+
+		<form th:action="@{/usuario/alta}" method="post" th:object="${Usuario}">
+
+			<fieldset>
+				<legend class="negrita" th:text="#{formAlta.campo.registroUsuario}"></legend>
+				<input type="hidden" th:field="*{idUsuario}">
+				<label>
+					<span class="rojo negrita">*</span>
+					<span class="negrita" th:text="#{formAlta.usuario.etiqueta}" />
+					<input type="text" name="usuario" id="usuario" th:field="*{usuario}" />
+					<span class="rojo negrita" th:each="err : ${#fields.errors('usuario')}" th:text="|${err} &emsp;|" />
+				</label>
+				<br>
+				<label>
+					<span class="rojo negrita">*</span>
+					<span class="negrita" th:text="#{formAlta.clave.etiqueta}" />
+					<input type="password" name="clave" id="clave" th:field="*{clave}" />
+					<span class="rojo negrita" th:each="error: ${#fields.errors('clave')}"
+						th:utext="|${error} &emsp;|" />
+				</label>
+				<br>
+				<label>
+					<span class="rojo negrita">*</span>
+					<span class="negrita" th:text="#{formAlta.confirmaClave.etiqueta}" />
+					<input type="password" name="confirmClave" id="confirmClave" th:field="*{confirmClave}" />
+				</label>
+				<br>
+			</fieldset>
+
+			<fieldset>
+				<legend class="negrita" th:text="#{formAlta.campo.datosPersonales}"></legend>
+				<label>
+					<span class="rojo negrita">*</span>
+					<span class="negrita" th:text="#{formAlta.apellido1.etiqueta}" />
+					<input type="text" name="apellido1" id="apellido1" th:field="*{apellido1}" />
+					<span class="rojo negrita" th:each="error: ${#fields.errors('apellido1')}" th:utext="${error}" />
+				</label>
+				<br>
+				<label>
+					<span>*</span>
+					<span class="negrita" th:text="#{formAlta.apellido2.etiqueta}" />
+					<input type="text" name="apellido2" id="apellido2" th:field="*{apellido2}" />
+				</label>
+				<br>
+				<label>
+					<span class="rojo negrita">*</span>
+					<span class="negrita" th:text="#{formAlta.nombre.etiqueta}" />
+					<input type="text" name="nombre" id="nombre" th:field="*{nombre}" />
+					<span class="rojo negrita" th:each="error: ${#fields.errors('nombre')}" th:utext="${error}" />
+				</label>
+				<br>
+				<label>
+					<span class="rojo negrita">*</span>
+					<span class="negrita" th:text="#{formAlta.genero.etiqueta}" />
+					<th:block th:each="genero: ${listaGeneros}">
+						<input type="radio" th:id="${genero.key}" th:value="${genero.key}" th:field="*{sigGenero}">
+						<span th:text="${genero.value}" />
+					</th:block>
+					<span class="rojo negrita" th:each="error: ${#fields.errors('sigGenero')}" th:utext="${error}" />
+				</label>
+				<br>
+				<label>
+					<span class="rojo negrita">*</span>
+					<span class="negrita" th:text="#{formAlta.pais.etiqueta}" />
+					<select th:name="#{formAlta.pais.etiqueta}" th:id="#{formAlta.pais.etiqueta}" th:field="*{pais}">
+						<th:block th:each="pais: ${listaPaises}">
+							<option th:value="${pais.idPais}" th:id="${pais.nombre}">
+								<span th:text="${pais.nombre}" />
+						</th:block>
+					</select>
+					<span class="rojo negrita" th:each="error: ${#fields.errors('pais')}" th:utext="${error}" />
+				</label>
+				<br>
+				<label>
+					<span class="rojo negrita">*</span>
+					<span class="negrita" th:text="#{formAlta.departamento.etiqueta}"/>
+					<select th:name="#{formAlta.departamento.etiqueta}" th:id="#{formAlta.departamento.etiqueta}" th:field="*{departamento}">
+						<th:block th:each="dep: ${listaDepartamento}">
+							<option th:value="${dep.idDepartamento}" th:id="${dep.nombre}">
+								<span th:text="${dep.nombre}" />
+						</th:block>
+					</select>
+					<span class="rojo negrita" th:each="error: ${#fields.errors('departamento')}" th:utext="${error}" />
+				</label>
+				<br>
+				<label>
+					<span class="rojo negrita">*</span>
+					<span class="negrita" th:text="#{formAlta.jefe.etiqueta}"/>
+					<select th:field="*{jefeDepartamento}">
+						<option selected="selected" th:value="${NULL}"> Ninguna</option>
+						<th:block th:each="dep: ${listaDepartamento}">
+							<option th:value="${dep.idDepartamento}" th:id="${dep.nombre}">
+							<span th:text="${dep.nombre}" />
+						</th:block>
+					</select>
+					<span class="rojo negrita" th:each="error: ${#fields.errors('jefeDepartamento')}" th:utext="${error}" />
+				</label>
+			</fieldset>
+
+			<fieldset>
+				<legend class="negrita" th:text="#{formAlta.campo.gestionFormulario}"></legend>
+
+				<input type="submit" th:value="#{formAlta.submit.texto}" />
+				<input type="reset" th:value="#{formAlta.reset.texto}" />
+				<br>
+			</fieldset>
+
+		</form>
+
+		<a href="/acceso/login">Inicia sesión</a>
+
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title th:utext="#{formLogin.title}"></title>
+	<link rel="icon" href="data:," />
+	<link rel="stylesheet" th:href="@{/css/estilos.css}" />
+</head>
+
+<body>
+
+	<div th:replace="panelControl :: panelControl"></div>
+
+	<div class="contenido">
+
+		<form th:action="@{/acceso/login}" method="post" th:object="${UsuarioLoginDTO}">
+			<label>
+				<span class="rojo negrita" th:text="${error}" />
+				<br>
+				<span class="rojo negrita">*</span>
+				<span class="negrita" th:text="#{formLogin.usuario.etiqueta}" />
+				<input type="text" name="usuario" id="usuario" th:field="*{usuario}" />
+				<span class="rojo negrita" th:each="error: ${#fields.errors('usuario')}" th:text="|${error} &emsp;|"/>
+			</label>
+			<br>
+			<label>
+				<span class="rojo negrita">*</span>
+				<span class="negrita" th:text="#{formLogin.clave.etiqueta}" />
+				<input type="password" name="clave" id="clave" th:field="*{clave}" />
+				<span class="rojo negrita" th:each="error: ${#fields.errors('clave')}" th:text="${error}" />
+			</label>
+			<br>
+			<input type="submit" th:value="#{formLogin.submit.texto}" /)>
+		</form>
+
+		<a href="/usuario/alta">Regístrate</a>
+
+	</div>
+</body>
+
+</html>

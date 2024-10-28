@@ -1,0 +1,45 @@
+.Cero{
+    width: 78.28px;
+    height: 98px;
+    background: url(/img/images.jpg) 0px 0;
+}
+.Uno {
+    width: 78.28px;
+    height: 98px;
+    background: url(/img/images.jpg) -78.28px 0;
+}
+.Dos {
+    width: 78.28px;
+    height: 98px;
+    background: url(/img/images.jpg) -156.6px 0;)
+}
+.Tres {
+    width: 78.28px;
+    height: 98px;
+    background: url(/img/images.jpg) -234.88px 0;
+}
+.Cuatro {
+    width: 78.28px;
+    height: 98px;
+    background: url(/img/images.jpg) -313.16px 0;
+}
+.Cinco {
+    width: 78.28px;
+    height: 98px;
+    background: url(/img/images.jpg) -391.44px 0;
+}
+.Seis {
+    width: 78.28px;
+    height: 98px;
+    background: url(/img/images.jpg) -469.72px 0;
+}
+.rojo {
+    color: red;
+}
+.negrita {
+    font-weight: bold;
+}
+.panelControl{
+    min-height: 40%;
+    width: 100%;
+}

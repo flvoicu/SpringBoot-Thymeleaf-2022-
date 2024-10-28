@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{pais.list.title}"></title>
+</head>
+<body>
+<div th:replace="panelControl :: panelControl"></div>
+<a th:href="@{/pais/alta/}"><input type="button" th:value="#{pais.alta.h1}"/></a>
+<a th:href="@{/departamento/listado/}"><input type="button" th:value="#{departamento.list.title}"/></a>
+<a th:href="@{/usuario/listado/}"><input type="button" th:value="#{listado.usuarios.titulo }"/></a>
+<br />
+<table border=1>
+    <tr>
+        <th th:text="#{pais.id}"></th>
+        <th th:text="#{pais.siglas}"></th>
+        <th th:text="#{pais.nombre}"></th>
+        <th th:text="#{pais.poblacion}"></th>
+        <th th:text="#{pais.superficie}"></th>
+        <th th:text="#{pais.fronteras}"></th>
+    </tr>
+
+    <tr th:each="pai : ${listaPais}">
+        <td th:text="${pai.idPais}"/>
+        <td th:text="${pai.siglas}"/>
+        <td th:text="${pai.nombre}"/>
+        <td th:text="${pai.poblacion}"/>
+        <td th:text="${pai.superficie}"/>
+        <td>
+            <th:block th:each="campo: ${pai.frontera}">
+               <span th:text="${campo.nombre}" />
+            </th:block>
+        </td>
+
+
+        <td><a th:href="@{/pais/modificar/} + ${pai.idPais}">
+            <input type="button" th:value="#{pais.list.modificar}"/></a></td>
+
+        <td><a th:href="@{/pais/baja/} + ${pai.idPais}">
+            <input type="button" th:value="#{pais.list.eliminar}"/></a></td>
+    </tr>
+
+</table>
+<br/>
+<br/>
+<a th:href="@{/pais/bajaTodo}">
+    <input type="button" th:value="#{pais.list.eliminarTodo}"/></a>
+</body>
+</html>

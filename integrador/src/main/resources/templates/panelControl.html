@@ -1,0 +1,17 @@
+<th:block th:fragment="panelControl">
+
+	<div class="container">
+		<div class="child">
+			<span th:text="${ip}" />
+			<span th:text="${equipo}" />
+		</div>
+		<div class="child" th:if="${_id}">
+			<span th:text="'ID: ' + ${_id}"/>
+			<span th:text="'Contador: ' + ${_contador}" />
+		</div>
+		<div th:if="${_id}" class="child2">
+			<a th:href="@{/acceso/logout}"><span>Logout</span></a>
+		</div>
+	</div>
+	
+</th:block>

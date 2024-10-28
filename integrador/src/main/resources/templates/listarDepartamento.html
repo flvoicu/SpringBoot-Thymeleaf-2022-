@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{departamento.list.title}"></title>
+</head>
+
+<body>
+<div th:replace="panelControl :: panelControl"></div>
+<a th:href="@{/departamento/alta/}"><input type="button" th:value="#{departamento.list.volverAlta}" /></a>
+<a th:href="@{/usuario/listado/}"><input type="button" th:value="#{listado.usuarios.titulo }" /></a>
+<a th:href="@{/pais/listado/}"><input type="button" th:value="#{pais.list.title}" /></a>
+
+<br />
+<table border=1>
+    <tr>
+        <th th:text="#{departamento.dptoId}"></th>
+        <th th:text="#{departamento.depno}"></th>
+        <th th:text="#{departamento.nombre}"></th>
+        <th th:text="#{departamento.localizacion}"></th>
+    </tr>
+
+    <tr th:each="iteracionDepa : ${listaDepartamento}">
+        <td th:text="${iteracionDepa.idDepartamento}" />
+        <td th:text="${iteracionDepa.depno}" />
+        <td th:text="${iteracionDepa.nombre}" />
+        <td th:text="${iteracionDepa.localizacion}" />
+
+        <td><a th:href="@{/departamento/modificar/} + ${iteracionDepa.idDepartamento}">
+            <input type="button" th:value="#{departamento.list.modificar}" /></a></td>
+
+        <td><a th:href="@{/departamento/baja/} + ${iteracionDepa.idDepartamento}">
+            <input type="button" th:value="#{departamento.list.eliminar}" /></a></td>
+    </tr>
+
+</table>
+<br />
+<br />
+<a th:href="@{/departamento/bajaTodo}">
+    <input type="button" th:value="#{departamento.list.eliminarTodo}" /></a>
+</body>
+
+</html>

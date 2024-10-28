@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Datos</title>
+		<link rel="icon" href="data:," />
+		<link rel="stylesheet" th:href="@{/css/estilos.css}" />
+	</head>
+	<body>
+		<div class="panelControl">
+			<div th:replace="panelControl :: panelControl "/>
+		</div>
+		<form th:action="@{/acceso/login}" method="post" th:object="${UsuarioLoginDTO}">
+
+			<span class="rojo negrita" th:text="${error}"/>
+			<br th:if="${error}">
+			<label>
+				<span class="negrita">Usuario</span>
+				<input type="text" name="usuario" id="usuario" th:value-="*{usuario}" />
+				<span class="rojo negrita" th:each="error: ${#fields.errors('usuario')}" th:text="|${error} &emsp;|" />
+			</label>
+			<br>
+			<label>
+				<span class="negrita">Clave</span>
+				<input type="password" name="clave" id="clave" th:value-="*{clave}" />
+				<span class="rojo negrita" th:each="error: ${#fields.errors('clave')}" th:text="|${error} &emsp;|" />
+			</label>
+			<br>
+			<input type="submit" value="Enviar" />
+		</form>
+	</body>
+</html>

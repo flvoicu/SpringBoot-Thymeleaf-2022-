@@ -1,0 +1,74 @@
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title th:utext="Listado"></title>
+	<link rel="icon" href="data:," />
+	<link rel="stylesheet" th:href="@{/css/estilos.css}" />
+</head>
+
+<body>
+
+	<div th:replace="panelControl :: panelControl"></div>
+
+	<a th:href="@{/usuario/alta/}"><input type="button" th:value="#{formAlta.h1.titulo}"/></a>
+	<a th:href="@{/departamento/listado/}"><input type="button" th:value="#{departamento.list.title}"/></a>
+	<a th:href="@{/pais/listado/}"><input type="button" th:value="#{pais.list.title}"/></a>
+
+
+	<form th:action="@{/usuario/parametrizado}" method="post" th:object="${Consulta}">
+		<label>
+			<span class="negrita" th:text="#{formParametrizado.campo.etiqueta}" />
+			<select th:name="#{formAlta.pais.etiqueta}" th:id="#{formAlta.pais.etiqueta}" th:field="*{campo}">
+				<th:block th:each="campo: ${listaCampos}">
+					<option th:value="${campo.key}" th:id="${campo.key}">
+						<span th:text="${campo.value}" />
+				</th:block>
+			</select>
+		</label>
+		<label>
+			<span class="negrita" th:text="#{formParametrizado.valor.etiqueta}" />
+			<input type="text" name="valor" id="valor" th:field="*{valor}" />
+		</label>
+
+		<input type="submit" th:value="#{formAlta.submit.texto}" />
+	</form>
+
+	<table border="1">
+
+		<th>Id</th>
+		<th>Usuario</th>
+		<th>Primer Apellido</th>
+		<th>Segundo Apellido</th>
+		<th>Nombre</th>
+		<th>Genero</th>
+		<th>Pais</th>
+		<th>Fecha Creación</th>
+		<th>Departamento</th>
+		<th>Jefe</th>
+
+
+		<tr th:each="usu : ${lista}">
+
+			<td th:text="${usu.idUsuario}" />
+			<td th:text="${usu.usuario}" />
+			<td th:text="${usu.apellido1}" />
+			<td th:text="${usu.apellido2}" />
+			<td th:text="${usu.nombre}" />
+			<td th:text="${usu.sigGenero}" />
+			<td th:text="${usu.pais.nombre}" />
+			<td th:text="${usu.fechCreacion}" />
+			<td th:text="${usu.departamento.nombre}" />
+			<td th:if="${usu.jefeDepartamento != null}" th:text="${usu.jefeDepartamento.nombre} ?: 'Ninguna'" />
+			<td th:if="${usu.jefeDepartamento == null}">Ninguno</td>
+			
+			<td><a th:href="@{/usuario/modificacion/}+${usu.idUsuario}"><input type="button" value="Modificar"/></a>
+			<td><a th:href="@{/usuario/baja/}+${usu.idUsuario}"><input type="button" value="Baja"/></a>
+
+
+		</tr>
+	</table>
+
+</body>
+
+</html>
